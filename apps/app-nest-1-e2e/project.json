@@ -12,6 +12,7 @@
         "passWithNoTests": true
       },
       "dependsOn": ["app-nest-1:build"]
-    }
+    },
+    "type-check": {}
   }
 }

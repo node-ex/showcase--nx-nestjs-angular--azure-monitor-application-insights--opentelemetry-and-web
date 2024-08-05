@@ -36,5 +36,13 @@
       },
       "exclude": ["apps/app-nest-1-e2e/**/*"]
     }
-  ]
+  ],
+  "targetDefaults": {
+    "type-check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --build --incremental {projectRoot}/tsconfig.json"
+      }
+    }
+  }
 }

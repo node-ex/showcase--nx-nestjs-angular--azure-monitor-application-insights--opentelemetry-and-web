@@ -21,6 +21,7 @@
           "buildTarget": "app-nest-1:build:production"
         }
       }
-    }
+    },
+    "type-check": {}
   }
 }

@@ -132,3 +132,27 @@ pnpm exec nx affected -t lint --base=HEAD
 ```
 
 VSCode "ESLint" extension is recommended to lint files. See example `.vscode/settings.template.json` for recommended settings.
+
+### Testing
+
+#### Unit tests
+
+Unit tests are run using Jest. To run them, either use commands from `package.json` or Nx commands.
+
+```bash
+# Run tests for a single app
+pnpm exec nx test app-nest-1
+
+# Run tests for all apps
+pnpm exec nx run-many -t test
+
+# Run tests for multiple apps
+pnpm exec nx run-many -t test -p app-nest-1 app-angular-2
+
+# Run unit tests only for affected projects (useful for CI)
+pnpm exec nx affected -t test --base=main
+pnpm exec nx affected -t test --base=main --head=HEAD
+pnpm exec nx affected -t test --base=HEAD
+```
+
+VSCode "Jest" and/or "Jest Runner" extensions are recommended to run the tests. See example `.vscode/settings.template.json` for recommended settings.

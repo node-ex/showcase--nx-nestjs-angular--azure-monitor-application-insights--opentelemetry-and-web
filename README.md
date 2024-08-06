@@ -166,6 +166,14 @@ This project uses Nx as a monorepo tool. If you want to run Nx commands, either 
 pnpm exec nx graph
 
 # Show affected projects for a specific target via web UI
-npx nx affected -t build --graph --base=HEAD
+pnpm exec nx affected -t build --graph --base=HEAD
 # Or use Nx Console extension -> "affected --graph" command
+
+# Show all projects in the current Nx workspace
+pnpm exec nx show projects
+
+# Show details about a specific project and its targets
+pnpm exec nx show project app-nest-1
+pnpm exec nx show --json project app-nest-1
+pnpm exec nx show --json project app-nest-1 | jq
 ```

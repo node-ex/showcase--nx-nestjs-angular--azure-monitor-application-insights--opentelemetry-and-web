@@ -6,6 +6,7 @@ module.exports = {
     path: join(__dirname, '../../dist/apps/app-nest-1'),
   },
   plugins: [
+    // https://nx.dev/recipes/webpack/webpack-plugins#nxappwebpackplugin
     new NxAppWebpackPlugin({
       target: 'node',
       compiler: 'tsc',
@@ -14,6 +15,7 @@ module.exports = {
       assets: ['./src/assets'],
       optimization: false,
       outputHashing: 'none',
+      skipTypeChecking: true, // Default: false
     }),
   ],
 };

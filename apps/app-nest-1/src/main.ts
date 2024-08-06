@@ -5,10 +5,14 @@
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { ConfigModule } from '@nestjs/config';
 
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
+  await ConfigModule.envVariablesLoaded;
+  // console.log(process.env['GREETING']);
+
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);

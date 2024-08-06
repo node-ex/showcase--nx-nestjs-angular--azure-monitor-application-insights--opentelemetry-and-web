@@ -11,7 +11,8 @@
       "dependsOn": ["build"],
       "options": {
         "buildTarget": "app-nest-1:build",
-        "runBuildTargetDependencies": false
+        "runBuildTargetDependencies": false,
+        "inspect": false
       },
       "configurations": {
         "development": {

@@ -114,7 +114,7 @@ pnpm exec nx run-many --target=lint --all=true
 pnpm exec nx run-many --target=lint --all=true --fix=true
 
 # Run lint checking for specific projects
-pnpm exec nx run-many --target=lint --projects=app-nest-1,app-angular-2
+pnpm exec nx run-many --target=lint --projects=app-nest-1,app-nest-2
 
 # Run lint checking in specific folder only (does not work in @nx/eslint v19.5.1)
 pnpm exec nx run app-nest-1:lint --lintFilePatterns 'apps/app-nest-1/src/**/*'
@@ -147,7 +147,7 @@ pnpm exec nx test app-nest-1
 pnpm exec nx run-many -t test
 
 # Run tests for multiple apps
-pnpm exec nx run-many -t test -p app-nest-1 app-angular-2
+pnpm exec nx run-many -t test -p app-nest-1 app-nest-2
 
 # Run unit tests only for affected projects (useful for CI)
 pnpm exec nx affected -t test --base=main

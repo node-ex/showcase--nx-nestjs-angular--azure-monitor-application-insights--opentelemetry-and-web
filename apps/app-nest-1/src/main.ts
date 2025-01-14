@@ -1,7 +1,10 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
+/*
+ * Needed for setting up Application Insights.
+ * Should have the same version as `@nestjs/config` package's dependency.
  */
+import 'dotenv/config';
+/* Must be the imported before other imports */
+import './app/application-insights.setup';
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';

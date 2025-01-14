@@ -1,4 +1,14 @@
-# template--nx-nestjs--basic
+# showcase--nx-nestjs--azure-monitor-application-insights--opentelemetry
+
+## Showcase
+
+1. Setup Azure account
+2. Setup Application Insights service
+3. Run `pnpm install`
+4. Copy `.env.template` as `.env` and add/change values if needed
+5. Run the app using `pnpm exec nx run app-nest-1:serve`
+6. Enable "REST Client" extension in VSCode and run the requests in `./api/requests.http` file
+7. Inspect the Application Insights Failures and Logs sections
 
 ## Local development
 

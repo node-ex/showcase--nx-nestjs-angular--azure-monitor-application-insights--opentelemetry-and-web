@@ -17,10 +17,10 @@ import { GlobalCatchAllExceptionFilter } from './global-catch-all.exception-filt
   ],
   controllers: [AppController],
   providers: [
-    {
-      provide: APP_FILTER,
-      useClass: GlobalCatchAllExceptionFilter,
-    },
+    // {
+    //   provide: APP_FILTER,
+    //   useClass: GlobalCatchAllExceptionFilter,
+    // },
     AppService,
   ],
 })

@@ -1,4 +1,4 @@
-import { Tracer, SpanKind, Span } from '@opentelemetry/api';
+import { Tracer, SpanKind, Span, trace } from '@opentelemetry/api';
 
 interface ClassType {
   new (...args: unknown[]): unknown;
@@ -14,10 +14,10 @@ type MethodDecorator = (
 /**
  * Decorator factory that creates a method decorator for OpenTelemetry tracing.
  * @param tracer The OpenTelemetry tracer instance
- * @param name The name of the span
+ * @param spanName The name of the span
  * @returns A method decorator that wraps the method execution with OpenTelemetry tracing
  */
-export function Trace(tracer: Tracer, name?: string): MethodDecorator {
+export function Trace(tracer: Tracer, spanName?: string): MethodDecorator {
   return function (
     target: object,
     propertyKey: string,
@@ -27,10 +27,10 @@ export function Trace(tracer: Tracer, name?: string): MethodDecorator {
 
     descriptor.value = function (...args: unknown[]): unknown {
       const className = target.constructor.name;
-      const spanName = name ?? `${className}.${propertyKey}`;
+      const usedSpanName = spanName ?? `${className}.${propertyKey}`;
 
       return tracer.startActiveSpan(
-        spanName,
+        usedSpanName,
         { kind: SpanKind.INTERNAL },
         async (span: Span) => {
           try {
@@ -52,22 +52,23 @@ export function Trace(tracer: Tracer, name?: string): MethodDecorator {
 
 /**
  * Class decorator that automatically applies tracing to all methods in a class.
- * @param tracer The OpenTelemetry tracer instance
- * @param namePrefix Optional prefix for span names
+ * @param spanNamePrefix Optional prefix for span names
  * @returns A class decorator that adds tracing to all methods
  */
-export function TraceClass(tracer: Tracer, namePrefix?: string) {
+export function TraceClass(spanNamePrefix?: string) {
   return function <T extends ClassType>(constructor: T): T {
-    // Get all method names from the prototype
+    const tracer = trace.getTracer(constructor.name);
+
     const methodNames = Object.getOwnPropertyNames(
       constructor.prototype,
     ).filter(
       (name) =>
         name !== 'constructor' &&
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         typeof constructor.prototype[name] === 'function',
     );
 
-    // Apply the Trace decorator to each method
+    /* Apply the Trace decorator to each method */
     for (const methodName of methodNames) {
       const descriptor = Object.getOwnPropertyDescriptor(
         constructor.prototype,
@@ -75,11 +76,11 @@ export function TraceClass(tracer: Tracer, namePrefix?: string) {
       );
 
       if (descriptor && typeof descriptor.value === 'function') {
-        const spanName = namePrefix
-          ? `${namePrefix}.${methodName}`
+        const usedSpanName = spanNamePrefix
+          ? `${spanNamePrefix}.${methodName}`
           : `${String(constructor.name)}.${methodName}`;
 
-        const tracedDescriptor = Trace(tracer, spanName)(
+        const tracedDescriptor = Trace(tracer, usedSpanName)(
           constructor.prototype as object,
           methodName,
           descriptor,

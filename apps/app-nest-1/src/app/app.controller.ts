@@ -12,7 +12,7 @@ export class AppController {
   }
 
   @Post('exception')
-  throwException(): never {
-    this.appService.throwException();
+  throwException(): Promise<never> {
+    return this.appService.throwException();
   }
 }

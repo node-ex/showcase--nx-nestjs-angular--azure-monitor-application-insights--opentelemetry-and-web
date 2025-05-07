@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { DataService } from './data.service';
 import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import { GlobalCatchAllExceptionFilter } from './global-catch-all.exception-filter';
@@ -22,6 +22,7 @@ import { GlobalCatchAllExceptionFilter } from './global-catch-all.exception-filt
     //   useClass: GlobalCatchAllExceptionFilter,
     // },
     AppService,
+    DataService,
   ],
 })
 export class AppModule {}

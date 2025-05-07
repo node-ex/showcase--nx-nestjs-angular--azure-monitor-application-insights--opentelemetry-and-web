@@ -6,8 +6,9 @@ import { Resource } from '@opentelemetry/resources';
 import { ATTR_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
 import { trace, metrics, ProxyTracerProvider } from '@opentelemetry/api';
 import { registerInstrumentations } from '@opentelemetry/instrumentation';
-// import { FsInstrumentation } from '@opentelemetry/instrumentation-fs';
 import { NestInstrumentation } from '@opentelemetry/instrumentation-nestjs-core';
+// import { FsInstrumentation } from '@opentelemetry/instrumentation-fs';
+// import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
 
 export class ApplicationInsightsUtils {
   /**
@@ -65,11 +66,13 @@ export class ApplicationInsightsUtils {
          * NestJS specific instrumentation:
          * https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-add-modify?tabs=nodejs#add-a-community-instrumentation-library
          * https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/plugins/node/opentelemetry-instrumentation-nestjs-core
-         *
-         * Automatically catches unhandled exceptions, but produces duplicated
-         * entries in the Application Insights.
          */
         new NestInstrumentation(),
+        /*
+         * https://www.npmjs.com/package/@opentelemetry/auto-instrumentations-node
+         * https://opentelemetry.io/docs/languages/js/getting-started/nodejs/
+         */
+        // getNodeAutoInstrumentations(),
       ],
       tracerProvider: tracerProvider,
       meterProvider: meterProvider,

@@ -1,27 +1,28 @@
 import { Injectable } from '@nestjs/common';
-import { SpanKind, trace, Tracer } from '@opentelemetry/api';
 import { Trace } from './tracing.decorators';
 import { DataService } from './data.service';
+import { ApplicationInsightsUtils } from './application-insights.utils';
 
 @Injectable()
 export class AppService {
-  private static readonly TRACER: Tracer = trace.getTracer(AppService.name);
+  public static readonly _TRACER = ApplicationInsightsUtils.getTracer(
+    AppService.name,
+  );
 
   public constructor(private readonly dataService: DataService) {}
 
-  @Trace(AppService.TRACER)
+  @Trace(AppService._TRACER)
   public async getData(): Promise<{ message: string }> {
     await new Promise((resolve) => setTimeout(resolve, 1000));
+    ApplicationInsightsUtils.addEventToActiveSpan('After wait');
     return this.dataService.getData();
   }
 
-  @Trace(AppService.TRACER)
+  @Trace(AppService._TRACER)
   async throwException(): Promise<never> {
-    const span = AppService.TRACER.startSpan(
+    const span = ApplicationInsightsUtils.startInternalSpan(
+      AppService._TRACER,
       'AppService.throwException -> AppService.getData',
-      {
-        kind: SpanKind.INTERNAL,
-      },
     );
     await this.getData();
     span.end();

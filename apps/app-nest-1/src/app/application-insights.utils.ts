@@ -4,11 +4,18 @@ import {
 } from '@azure/monitor-opentelemetry';
 import { Resource } from '@opentelemetry/resources';
 import { ATTR_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
-import { trace, metrics, ProxyTracerProvider } from '@opentelemetry/api';
+import {
+  trace,
+  metrics,
+  ProxyTracerProvider,
+  Tracer,
+  Span,
+  SpanKind,
+} from '@opentelemetry/api';
 import { registerInstrumentations } from '@opentelemetry/instrumentation';
-import { NestInstrumentation } from '@opentelemetry/instrumentation-nestjs-core';
+// import { NestInstrumentation } from '@opentelemetry/instrumentation-nestjs-core';
 // import { FsInstrumentation } from '@opentelemetry/instrumentation-fs';
-// import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
+import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
 
 export class ApplicationInsightsUtils {
   /**
@@ -16,7 +23,7 @@ export class ApplicationInsightsUtils {
    * https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-enable?tabs=nodejs
    * https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-configuration?tabs=nodejs
    */
-  static initialize(connectionString: string) {
+  public static initialize(connectionString: string) {
     const customResource = new Resource({
       [ATTR_SERVICE_NAME]: 'my-service',
     });
@@ -30,9 +37,7 @@ export class ApplicationInsightsUtils {
       },
       /* https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-add-modify?tabs=nodejs#included-instrumentation-libraries */
       instrumentationOptions: {
-        http: {
-          enabled: true,
-        },
+        http: { enabled: true },
         azureSdk: { enabled: true },
         // mongoDb: { enabled: true },
         // mySql: { enabled: true },
@@ -67,15 +72,33 @@ export class ApplicationInsightsUtils {
          * https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-add-modify?tabs=nodejs#add-a-community-instrumentation-library
          * https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/plugins/node/opentelemetry-instrumentation-nestjs-core
          */
-        new NestInstrumentation(),
+        // new NestInstrumentation(),
         /*
          * https://www.npmjs.com/package/@opentelemetry/auto-instrumentations-node
          * https://opentelemetry.io/docs/languages/js/getting-started/nodejs/
          */
-        // getNodeAutoInstrumentations(),
+        getNodeAutoInstrumentations(),
       ],
       tracerProvider: tracerProvider,
       meterProvider: meterProvider,
     });
+  }
+
+  public static getTracer(name: string): Tracer {
+    return trace.getTracer(name);
+  }
+
+  public static startInternalSpan(tracer: Tracer, spanName: string): Span {
+    return tracer.startSpan(spanName, {
+      kind: SpanKind.INTERNAL,
+    });
+  }
+
+  public static getActiveSpan() {
+    return trace.getActiveSpan();
+  }
+
+  public static addEventToActiveSpan(event: string) {
+    ApplicationInsightsUtils.getActiveSpan()?.addEvent(event);
   }
 }

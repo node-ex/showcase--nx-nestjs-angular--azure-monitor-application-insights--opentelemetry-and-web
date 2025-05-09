@@ -1,8 +1,9 @@
-import { Tracer, SpanKind, Span, trace } from '@opentelemetry/api';
+import { Tracer, SpanKind, Span } from '@opentelemetry/api';
 
 interface ClassType {
   new (...args: unknown[]): unknown;
   name: string;
+  _TRACER: Tracer;
 }
 
 type MethodDecorator = (
@@ -57,8 +58,6 @@ export function Trace(tracer: Tracer, spanName?: string): MethodDecorator {
  */
 export function TraceClass(spanNamePrefix?: string) {
   return function <T extends ClassType>(constructor: T): T {
-    const tracer = trace.getTracer(constructor.name);
-
     const methodNames = Object.getOwnPropertyNames(
       constructor.prototype,
     ).filter(
@@ -80,7 +79,7 @@ export function TraceClass(spanNamePrefix?: string) {
           ? `${spanNamePrefix}.${methodName}`
           : `${String(constructor.name)}.${methodName}`;
 
-        const tracedDescriptor = Trace(tracer, usedSpanName)(
+        const tracedDescriptor = Trace(constructor._TRACER, usedSpanName)(
           constructor.prototype as object,
           methodName,
           descriptor,

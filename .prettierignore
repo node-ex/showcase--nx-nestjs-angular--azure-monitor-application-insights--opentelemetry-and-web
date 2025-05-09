@@ -9,3 +9,5 @@ pnpm-lock.yaml
 # https://github.com/nrwl/nx/issues/10937
 # https://github.com/nrwl/nx/issues/13675
 tsconfig.base.json
+
+.angular

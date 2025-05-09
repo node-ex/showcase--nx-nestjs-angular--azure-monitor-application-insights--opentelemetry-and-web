@@ -33,6 +33,10 @@ You can start each app manually:
 # app-nest-1
 pnpm exec nx run app-nest-1:serve
 # Access via: http://localhost:3000
+
+# app-angular-1
+pnpm exec nx run app-angular-1:serve
+# Access via: http://localhost:4200
 ```
 
 ### Build and preview
@@ -47,6 +51,9 @@ pnpm exec nx run app-nest-1:build
 # Preview backend
 pnpm exec nx run app-nest-1:preview
 node ./dist/apps/app-nest-1/main.js
+
+# Preview frontend
+pnpx serve --single ./dist/apps/app-angular-1/browser
 ```
 
 ### Formatting
@@ -124,7 +131,7 @@ pnpm exec nx run-many --target=lint --all=true
 pnpm exec nx run-many --target=lint --all=true --fix=true
 
 # Run lint checking for specific projects
-pnpm exec nx run-many --target=lint --projects=app-nest-1,app-nest-2
+pnpm exec nx run-many --target=lint --projects=app-nest-1,app-angular-1
 
 # Run lint checking in specific folder only (does not work in @nx/eslint v19.5.1)
 pnpm exec nx run app-nest-1:lint --lintFilePatterns 'apps/app-nest-1/src/**/*'
@@ -157,7 +164,7 @@ pnpm exec nx test app-nest-1
 pnpm exec nx run-many -t test
 
 # Run tests for multiple apps
-pnpm exec nx run-many -t test -p app-nest-1 app-nest-2
+pnpm exec nx run-many -t test -p app-nest-1 app-angular-1
 
 # Run unit tests only for affected projects (useful for CI)
 pnpm exec nx affected -t test --base=main
@@ -187,3 +194,7 @@ pnpm exec nx show project app-nest-1
 pnpm exec nx show --json project app-nest-1
 pnpm exec nx show --json project app-nest-1 | jq
 ```
+
+### Environment variables
+
+Copy `.env.template` as `.env` and change variable values as needed. Only variables with a `PUBLIC_` prefix are available in `app-angular-1`.

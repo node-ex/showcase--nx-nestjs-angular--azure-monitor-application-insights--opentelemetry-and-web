@@ -3,11 +3,10 @@ node_modules
 /dist
 /coverage
 /.nx
+.angular
 pnpm-lock.yaml
 
 # Due to a bug in Nx format:write
 # https://github.com/nrwl/nx/issues/10937
 # https://github.com/nrwl/nx/issues/13675
 tsconfig.base.json
-
-.angular

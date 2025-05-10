@@ -35,6 +35,9 @@ importers:
       '@azure/monitor-opentelemetry':
         specifier: ^1.8.0
         version: 1.8.0
+      '@microsoft/applicationinsights-angularplugin-js':
+        specifier: ^15.3.6
+        version: 15.3.6(@angular/common@18.1.5(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))(@microsoft/applicationinsights-analytics-js@3.3.7(tslib@2.6.3))
       '@microsoft/applicationinsights-web':
         specifier: ^3.3.7
         version: 3.3.7(tslib@2.6.3)
@@ -2165,6 +2168,13 @@ packages:
     resolution: {integrity: sha512-SuNtD0CvnrfKi+XCxAJ1/33op3eesoBQzog/4332s5UasZwTrDwZkZ9H/LA9C/QcljOPs0fobNGPcWvnczb8OQ==}
     peerDependencies:
       tslib: '>= 1.0.0'
+
+  '@microsoft/applicationinsights-angularplugin-js@15.3.6':
+    resolution: {integrity: sha512-7ulFdJlyYgqjORz7yiEVZdI1ctbDO7Yd5ALEnmrzd2QrupmvbOiDb5vlh91nOhXNdO6eST9jE8WAgKYjxB5mrA==}
+    peerDependencies:
+      '@angular/common': '>= 14.0.3'
+      '@angular/core': '>= 14.0.3'
+      '@microsoft/applicationinsights-analytics-js': ^3.3.6
 
   '@microsoft/applicationinsights-cfgsync-js@3.3.7':
     resolution: {integrity: sha512-5rT3xJHjLBGBZhFGANXYnZvG1mvBeOdg5fK6V/nRbcwJ66ei8uzvR6zFPDimTgE6zhqPQ5Rfxja2US7ZjJVH4Q==}
@@ -11305,6 +11315,17 @@ snapshots:
       '@nevware21/ts-utils': 0.12.3
       tslib: 2.6.3
 
+  '@microsoft/applicationinsights-angularplugin-js@15.3.6(@angular/common@18.1.5(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))(@microsoft/applicationinsights-analytics-js@3.3.7(tslib@2.6.3))':
+    dependencies:
+      '@angular/common': 18.1.5(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1)
+      '@angular/core': 18.1.5(rxjs@7.8.1)(zone.js@0.14.10)
+      '@microsoft/applicationinsights-analytics-js': 3.3.7(tslib@2.6.3)
+      '@microsoft/applicationinsights-common': 3.3.7(tslib@2.8.1)
+      '@microsoft/applicationinsights-core-js': 3.3.7(tslib@2.8.1)
+      '@microsoft/applicationinsights-properties-js': 3.3.7(tslib@2.8.1)
+      '@microsoft/applicationinsights-shims': 3.0.1
+      tslib: 2.8.1
+
   '@microsoft/applicationinsights-cfgsync-js@3.3.7(tslib@2.6.3)':
     dependencies:
       '@microsoft/applicationinsights-common': 3.3.7(tslib@2.6.3)
@@ -11333,6 +11354,14 @@ snapshots:
       '@nevware21/ts-utils': 0.12.3
       tslib: 2.6.3
 
+  '@microsoft/applicationinsights-common@3.3.7(tslib@2.8.1)':
+    dependencies:
+      '@microsoft/applicationinsights-core-js': 3.3.7(tslib@2.8.1)
+      '@microsoft/applicationinsights-shims': 3.0.1
+      '@microsoft/dynamicproto-js': 2.0.3
+      '@nevware21/ts-utils': 0.12.3
+      tslib: 2.8.1
+
   '@microsoft/applicationinsights-core-js@3.3.7(tslib@2.6.3)':
     dependencies:
       '@microsoft/applicationinsights-shims': 3.0.1
@@ -11340,6 +11369,14 @@ snapshots:
       '@nevware21/ts-async': 0.5.4
       '@nevware21/ts-utils': 0.12.3
       tslib: 2.6.3
+
+  '@microsoft/applicationinsights-core-js@3.3.7(tslib@2.8.1)':
+    dependencies:
+      '@microsoft/applicationinsights-shims': 3.0.1
+      '@microsoft/dynamicproto-js': 2.0.3
+      '@nevware21/ts-async': 0.5.4
+      '@nevware21/ts-utils': 0.12.3
+      tslib: 2.8.1
 
   '@microsoft/applicationinsights-dependencies-js@3.3.7(tslib@2.6.3)':
     dependencies:
@@ -11359,6 +11396,15 @@ snapshots:
       '@microsoft/dynamicproto-js': 2.0.3
       '@nevware21/ts-utils': 0.12.3
       tslib: 2.6.3
+
+  '@microsoft/applicationinsights-properties-js@3.3.7(tslib@2.8.1)':
+    dependencies:
+      '@microsoft/applicationinsights-common': 3.3.7(tslib@2.8.1)
+      '@microsoft/applicationinsights-core-js': 3.3.7(tslib@2.8.1)
+      '@microsoft/applicationinsights-shims': 3.0.1
+      '@microsoft/dynamicproto-js': 2.0.3
+      '@nevware21/ts-utils': 0.12.3
+      tslib: 2.8.1
 
   '@microsoft/applicationinsights-shims@3.0.1':
     dependencies:

@@ -1,4 +1,4 @@
-# showcase--nx-nestjs--azure-monitor-application-insights--opentelemetry
+# showcase--nx-nestjs-angular--azure-monitor-application-insights--opentelemetry-and-web
 
 ## Showcase
 
@@ -6,9 +6,10 @@
 2. Setup Application Insights service
 3. Run `pnpm install`
 4. Copy `.env.template` as `.env` and add/change values if needed
-5. Run the app using `pnpm exec nx run app-nest-1:serve`
-6. Enable "REST Client" extension in VSCode and run the requests in `./api/requests.http` file
-7. Inspect the Application Insights Failures and Logs sections
+5. Run the BE app using `pnpm exec nx run app-nest-1:serve`
+6. Run the FE app using `pnpm exec nx run app-angular-1:serve`
+7. Access the FE app via `http://localhost:4200`
+8. Inspect the Application Insights Transaction Search section
 
 ## Local development
 

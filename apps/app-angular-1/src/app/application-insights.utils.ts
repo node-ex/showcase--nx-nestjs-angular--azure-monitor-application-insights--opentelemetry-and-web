@@ -1,5 +1,6 @@
-
-import { ApplicationInsights } from '@microsoft/applicationinsights-web'
+import { Router } from '@angular/router';
+import { ApplicationInsights } from '@microsoft/applicationinsights-web';
+import { AngularPlugin } from '@microsoft/applicationinsights-angularplugin-js';
 
 export class ApplicationInsightsUtils {
   private static _client: ApplicationInsights | undefined;
@@ -12,10 +13,16 @@ export class ApplicationInsightsUtils {
     return this._client;
   }
 
-  public static initialize(connectionString: string): void {
+  public static initialize(connectionString: string, router: Router): void {
+    const angularPlugin = new AngularPlugin();
     const appInsights = new ApplicationInsights({
       config: {
         connectionString,
+        // @ts-expect-error incompatible angularPlugin type
+        extensions: [angularPlugin],
+        extensionConfig: {
+          [angularPlugin.identifier]: { router },
+        },
       },
     });
 

@@ -16,4 +16,6 @@ const samplingRate = process.env[
     )
   : undefined;
 
-ApplicationInsightsUtils.initialize(connectionString, samplingRate);
+if (connectionString) {
+  ApplicationInsightsUtils.initialize(connectionString, samplingRate);
+}

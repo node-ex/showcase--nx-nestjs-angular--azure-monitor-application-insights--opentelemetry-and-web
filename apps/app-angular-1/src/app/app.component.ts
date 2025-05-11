@@ -30,11 +30,13 @@ export class AppComponent implements OnInit {
      * https://learn.microsoft.com/en-us/azure/azure-monitor/app/javascript-framework-extensions?tabs=angular
      * https://github.com/microsoft/applicationinsights-angularplugin-js
      */
-    ApplicationInsightsUtils.initialize(
-      connectionString,
-      this.router,
-      samplingRate,
-    );
+    if (connectionString) {
+      ApplicationInsightsUtils.initialize(
+        connectionString,
+        this.router,
+        samplingRate,
+      );
+    }
 
     console.log('PUBLIC_GREETING', process.env.PUBLIC_GREETING);
 

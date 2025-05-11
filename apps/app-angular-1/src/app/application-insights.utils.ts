@@ -13,10 +13,15 @@ export class ApplicationInsightsUtils {
     return this._client;
   }
 
-  public static initialize(connectionString: string, router: Router): void {
+  public static initialize(
+    connectionString: string,
+    router: Router,
+    samplingRate = 1.0,
+  ): void {
     const angularPlugin = new AngularPlugin();
     const appInsights = new ApplicationInsights({
       config: {
+        samplingPercentage: samplingRate * 100,
         connectionString,
         // @ts-expect-error incompatible angularPlugin type
         extensions: [angularPlugin],

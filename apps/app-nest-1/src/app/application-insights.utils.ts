@@ -23,7 +23,7 @@ export class ApplicationInsightsUtils {
    * https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-enable?tabs=nodejs
    * https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-configuration?tabs=nodejs
    */
-  public static initialize(connectionString: string) {
+  public static initialize(connectionString: string, samplingRate = 1.0) {
     const customResource = new Resource({
       [ATTR_SERVICE_NAME]: 'my-service',
     });
@@ -46,7 +46,7 @@ export class ApplicationInsightsUtils {
         // redis4: { enabled: true },
       },
       /* https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-configuration?tabs=nodejs#enable-sampling */
-      samplingRatio: 1.0,
+      samplingRatio: samplingRate,
       enableStandardMetrics: true,
       /* https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-configuration?tabs=nodejs#live-metrics */
       enableLiveMetrics: false,

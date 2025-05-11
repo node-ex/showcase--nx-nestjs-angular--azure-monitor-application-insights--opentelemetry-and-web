@@ -5,12 +5,15 @@
 
 import { ApplicationInsightsUtils } from './application-insights.utils';
 
-// console.log(
-//   "process.env['PUBLIC_AZURE_MONITOR_APPLICATION_INSIGHTS_CONNECTION_STRING']",
-//   process.env['PUBLIC_AZURE_MONITOR_APPLICATION_INSIGHTS_CONNECTION_STRING'],
-// );
-
-ApplicationInsightsUtils.initialize(
+const connectionString =
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  process.env['PUBLIC_AZURE_MONITOR_APPLICATION_INSIGHTS_CONNECTION_STRING']!,
-);
+  process.env['PUBLIC_AZURE_MONITOR_APPLICATION_INSIGHTS_CONNECTION_STRING']!;
+const samplingRate = process.env[
+  'PUBLIC_AZURE_MONITOR_APPLICATION_INSIGHTS_SAMPLING_RATE'
+]
+  ? Number(
+      process.env['PUBLIC_AZURE_MONITOR_APPLICATION_INSIGHTS_SAMPLING_RATE'],
+    )
+  : undefined;
+
+ApplicationInsightsUtils.initialize(connectionString, samplingRate);

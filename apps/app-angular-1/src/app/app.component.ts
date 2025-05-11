@@ -16,13 +16,25 @@ export class AppComponent implements OnInit {
 
   constructor(private router: Router) {
     const connectionString =
-      process.env.PUBLIC_AZURE_MONITOR_APPLICATION_INSIGHTS_CONNECTION_STRING;
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      process.env.PUBLIC_AZURE_MONITOR_APPLICATION_INSIGHTS_CONNECTION_STRING!;
+    const samplingRate = process.env
+      .PUBLIC_AZURE_MONITOR_APPLICATION_INSIGHTS_SAMPLING_RATE
+      ? Number(
+          process.env.PUBLIC_AZURE_MONITOR_APPLICATION_INSIGHTS_SAMPLING_RATE,
+        )
+      : undefined;
+
     /*
      * Setup based on the official documentation:
      * https://learn.microsoft.com/en-us/azure/azure-monitor/app/javascript-framework-extensions?tabs=angular
      * https://github.com/microsoft/applicationinsights-angularplugin-js
      */
-    ApplicationInsightsUtils.initialize(connectionString, this.router);
+    ApplicationInsightsUtils.initialize(
+      connectionString,
+      this.router,
+      samplingRate,
+    );
 
     console.log('PUBLIC_GREETING', process.env.PUBLIC_GREETING);
 
